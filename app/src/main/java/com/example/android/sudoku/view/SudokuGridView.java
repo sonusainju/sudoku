@@ -41,5 +41,9 @@ public class SudokuGridView extends GridView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, widthMeasureSpec);
     }
+
+    private void TestUplpoad(){
+        int i = 0;
+    }
 }
 
