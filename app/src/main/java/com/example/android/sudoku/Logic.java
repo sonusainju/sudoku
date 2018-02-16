@@ -1,11 +1,7 @@
 package com.example.android.sudoku;
 
 import android.util.Log;
-import android.view.View;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
+
 
 /**
  * Created by dines on 2018-02-08.
@@ -14,8 +10,13 @@ import android.view.View;
 public class Logic {
 
     private final static String LOG_TAG = MainActivity.class.getSimpleName();
+    private boolean puzzleSolved = false;
+    private boolean puzzleUnsolvable=false;
+    private int[][] puzzleMatrix;
+    private int[][] solvedMatrix;
+    //private SudokuGrid sudokuGrid;
 
-    private int[][] A = new int[][]{
+    /*private int[][] A = new int[][]{
             {7, 0, 8, 0, 3, 0, 2, 0, 0},
             {6, 0, 0, 0, 0, 5, 3, 0, 0},
             {0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -24,15 +25,16 @@ public class Logic {
             {0, 5, 0, 0, 0, 0, 0, 0, 9},
             {0, 0, 0, 8, 0, 0, 0, 0, 0},
             {0, 0, 5, 7, 0, 0, 0, 0, 3},
-            {0, 0, 7, 0, 4, 0, 8, 0, 1}};
+            {0, 0, 7, 0, 4, 0, 8, 0, 1}};*/
 
+    public Logic(int[][] A){
+        puzzleMatrix=A;
+    }
 
+    public boolean getPuzzleSolvedFlag(){return puzzleSolved;}
 
-
-
-    public void solvePuzzle() {
-        SudokuGrid sudokuGrid = new SudokuGrid(A);
-        boolean puzzleSolved = false;
+    public boolean solvePuzzle() {
+        SudokuGrid sudokuGrid=new SudokuGrid(puzzleMatrix);
 
         Log.d(LOG_TAG, "Before processing start");
         sudokuGrid.printSudoku();
@@ -40,12 +42,16 @@ public class Logic {
 
         puzzleSolved = sudokuGrid.solveGridWithAllLogics();
 
-        if (sudokuGrid.getNoSolutionAvailableForThis())
-            Log.d(LOG_TAG, "No solution available for this grid. Wrong puzzle...");
+        /*if(puzzleSolved){
+            return sudokuGrid.getMatrix();
+        }*/
+        puzzleUnsolvable=sudokuGrid.getNoSolutionAvailableForThis();
+        if (puzzleUnsolvable) {Log.d(LOG_TAG, "No solution available for this grid. Wrong puzzle...");}
 
-        Log.d(LOG_TAG, "After All logics");
+        Log.d(LOG_TAG, "After All logic");
         sudokuGrid.printSudoku();
         sudokuGrid.printPossibleValues();
+
 
         //If the sudoku hasn't been solved yet, we will start guessing
 
@@ -67,7 +73,8 @@ public class Logic {
                             Log.d(LOG_TAG, "After guessing at i=" + i + " j=" + j + "Guessed value =" + possibleValues[k]);
                             sudokuGridTemp.printSudoku();
                             sudokuGridTemp.printPossibleValues();
-                            break;  //exit loop
+                            return  sudokuGridTemp.getMatrix();
+                            //break;  //exit loop
                         }
                     }
                     if (puzzleSolved) break;
@@ -102,7 +109,8 @@ public class Logic {
                                         Log.d(LOG_TAG, "After making two guesses at i=" + i + " j=" + j + "Guessed value =" + possibleValues[k] + " l=" + l + " m=" + m + "possibleValue2[n]=" + possibleValues2[n]);
                                         sudokuGridTemp2.printSudoku();
                                         sudokuGridTemp2.printPossibleValues();
-                                        break;  //exit loop
+                                        return  sudokuGridTemp2.getMatrix();
+                                        //break;  //exit loop
                                     }
                                 }
                                 if (puzzleSolved) break;
@@ -118,6 +126,7 @@ public class Logic {
 
         }
         Log.d(LOG_TAG, "Program Completed....");
+    return sudokuGrid.getMatrix(); //If the puzzle hasn't solved so far, the latest result from sudokuGrid will be returned.
     }
 }
 

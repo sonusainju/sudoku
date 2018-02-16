@@ -23,7 +23,7 @@ public class SudokuGrid {
     public SudokuGrid(int X[][]){
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 9; j++) {
-                sudokuUnit[i][j] = new com.example.android.sudoklogic.SudokuUnit(i, j);
+                sudokuUnit[i][j] = new SudokuUnit(i, j);
                 if (X[i][j] != 0) {
                     sudokuUnit[i][j].setFinalValue(X[i][j]);
                     //this.noOfValuesFinalized++;
