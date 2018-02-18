@@ -32,6 +32,8 @@ public class Logic {
     }
 
     public boolean getPuzzleSolvedFlag(){return puzzleSolved;}
+    public boolean getPuzzleUnsolvableFlag(){return puzzleUnsolvable;}
+    public int[][] getSolvedMatrix(){return solvedMatrix;}
 
     public boolean solvePuzzle() {
         SudokuGrid sudokuGrid=new SudokuGrid(puzzleMatrix);
@@ -42,9 +44,9 @@ public class Logic {
 
         puzzleSolved = sudokuGrid.solveGridWithAllLogics();
 
-        /*if(puzzleSolved){
-            return sudokuGrid.getMatrix();
-        }*/
+        if(puzzleSolved){
+            solvedMatrix= sudokuGrid.getMatrix();
+        }
         puzzleUnsolvable=sudokuGrid.getNoSolutionAvailableForThis();
         if (puzzleUnsolvable) {Log.d(LOG_TAG, "No solution available for this grid. Wrong puzzle...");}
 
@@ -73,8 +75,9 @@ public class Logic {
                             Log.d(LOG_TAG, "After guessing at i=" + i + " j=" + j + "Guessed value =" + possibleValues[k]);
                             sudokuGridTemp.printSudoku();
                             sudokuGridTemp.printPossibleValues();
-                            return  sudokuGridTemp.getMatrix();
-                            //break;  //exit loop
+                            solvedMatrix= sudokuGridTemp.getMatrix();
+                            //return  sudokuGridTemp.getMatrix();
+                            break;  //exit loop
                         }
                     }
                     if (puzzleSolved) break;
@@ -109,8 +112,9 @@ public class Logic {
                                         Log.d(LOG_TAG, "After making two guesses at i=" + i + " j=" + j + "Guessed value =" + possibleValues[k] + " l=" + l + " m=" + m + "possibleValue2[n]=" + possibleValues2[n]);
                                         sudokuGridTemp2.printSudoku();
                                         sudokuGridTemp2.printPossibleValues();
-                                        return  sudokuGridTemp2.getMatrix();
-                                        //break;  //exit loop
+                                        solvedMatrix= sudokuGridTemp2.getMatrix();
+                                        //return  sudokuGridTemp2.getMatrix();
+                                        break;  //exit loop
                                     }
                                 }
                                 if (puzzleSolved) break;
@@ -126,7 +130,7 @@ public class Logic {
 
         }
         Log.d(LOG_TAG, "Program Completed....");
-    return sudokuGrid.getMatrix(); //If the puzzle hasn't solved so far, the latest result from sudokuGrid will be returned.
+    return puzzleSolved;
     }
 }
 

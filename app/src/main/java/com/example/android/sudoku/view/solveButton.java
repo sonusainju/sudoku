@@ -44,12 +44,20 @@ public class solveButton extends AppCompatButton implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        int[][] solvedSudoku;
-
         GameEngine.getInstance().setGrid(sudoku);
-        Logic logicObject=new Logic();
 
-        solvedSudoku=logicObject.solvePuzzle(sudoku);
+        boolean solvedSudoku;
+        int[][] solvedMatrix;
+        Logic logicObject=new Logic(sudoku);
+        solvedSudoku=logicObject.solvePuzzle();
+        if(solvedSudoku){
+            solvedMatrix=logicObject.getSolvedMatrix();
+        } else if (logicObject.getPuzzleUnsolvableFlag()) {
+            //Display message to say puzzle is wrong and cannot be solved
+        } else{
+            //Display message to say puzzle could not be solved.
+        }
+
     }
 
 }
