@@ -52,6 +52,7 @@ public class solveButton extends AppCompatButton implements View.OnClickListener
         solvedSudoku=logicObject.solvePuzzle();
         if(solvedSudoku){
             solvedMatrix=logicObject.getSolvedMatrix();
+            //Display the solved puzzle
         } else if (logicObject.getPuzzleUnsolvableFlag()) {
             //Display message to say puzzle is wrong and cannot be solved
         } else{
