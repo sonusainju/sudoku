@@ -33,4 +33,8 @@
         android:layout_toRightOf="@+id/buttonsGridView"
         android:layout_below="@+id/sudokuGridView"
         />
+    <com.example.android.sudoku.view.sudokuLayout
+        android:id = "@+id/sudokuLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </RelativeLayout>
