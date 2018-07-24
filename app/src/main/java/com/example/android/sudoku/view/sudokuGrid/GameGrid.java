@@ -27,6 +27,14 @@ public class GameGrid {
         }
     }
 
+    public void clearGrid(){
+        for( int x = 0 ; x < 9 ; x++ ){
+            for( int y = 0 ; y < 9 ; y++){
+                Sudoku[x][y].setModifiable();
+                Sudoku[x][y].setValue(0);
+            }
+        }
+    }
     public SudokuCell[][] getGrid(){
         return Sudoku;
     }
